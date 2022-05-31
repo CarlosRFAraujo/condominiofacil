@@ -9,10 +9,11 @@ Para a implementação deste projeto foram utilizadas as seguintes dependências
 "express-flash": "^0.0.2";
 "express-handlebars": "^6.0.6";
 "express-session": "^1.17.3";
+"mysql2": "^2.3.3";
 "sequelize": "^6.20.1";
 "session-file-store": "^1.5.0"
 
 Instalando módulos externos necessários para o projeto: 
-> npm install bcryptjs connect-flash cookie-parser cookie-session express express-flash express-session sequelize session-file-store
+> npm install bcryptjs connect-flash cookie-parser cookie-session express express-flash express-handlebars express-session sequelize session-file-store mysql2
 
 

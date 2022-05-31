@@ -4,6 +4,8 @@ const flash = require('express-flash')
 const session = require('express-session')
 const FileStore = require('session-file-store')(session)
 
+const connect = require('./database/connect')
+
 const app = express()
 
 app.engine('handlebars', hbs.engine())
@@ -41,3 +43,4 @@ app.use(
 
 app.use(flash())
 
+connect.sync().then(() => app.listen(3000))

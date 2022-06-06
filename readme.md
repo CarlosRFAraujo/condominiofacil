@@ -1,5 +1,5 @@
 O escopo deste projeto visa a criação de um sistema de gestão de condomínios;
-Os termos de uso e licença estão destritos sob licenças Licença BSD 2.0
+Os termos de uso e licença estão destritos sob licenças Licença BSD 3.0
 Para a implementação deste projeto foram utilizadas as seguintes dependências de módulos externos:
 "bcryptjs": "^2.4.3";
 "connect-flash": "^0.1.1";

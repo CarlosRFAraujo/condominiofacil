@@ -21,8 +21,7 @@ const Divulgacao = connect.define('Divulgacao', {
     },
     valor: {
         type: DataTypes.FLOAT,
-        allowNull: false,
-        required: true
+        allowNull: true
     },
     CPF: {
         type: DataTypes.STRING,

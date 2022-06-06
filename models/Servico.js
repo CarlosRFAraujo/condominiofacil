@@ -32,6 +32,10 @@ const Servico = connect.define('Servico', {
         type: DataTypes.BOOLEAN,
         required:true
     },
+    imagem: {
+        type: DataTypes.BLOB,
+        required: true
+    }
 })
 
 Servico.belongsTo(User)

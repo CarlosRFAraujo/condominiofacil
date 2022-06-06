@@ -56,6 +56,7 @@ app.use(
 
 app.use(flash())
 
+
 app.get('/', Main.principal)
 
 connect.sync().then(() => app.listen(3000))

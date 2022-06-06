@@ -142,6 +142,15 @@ main .social ul img {
 
 }
 
+.home {
+    text-align: center;
+}
+
+.apresentacao {
+    display: flex;
+    justify-content: space-around;
+}
+
 .authcontainer h1 {
     margin-bottom: 0%;
     border-left:3px solid #684beb;
@@ -199,6 +208,28 @@ footer {
     margin: 0em 0.5em;
     display: flex;
     justify-content: space-around;
+    background-image: radial-gradient(#1F056B, #360AB8, #430CEB, #7A53EE);
+}
+
+footer .dev {
+    display: flex;
+    max-width: 500px;
+    justify-content: space-between;
+}
+footer .dev .social {
+    margin-left: 20px;
+}
+
+footer div img {
+    margin-top: 5px;
+}
+
+.social ul {
+    list-style: none;
+}
+
+.social ul li img {
+    height: 28px;
 }
 
 /* Media queries */

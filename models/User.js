@@ -19,6 +19,11 @@ const User = connect.define('User', {
         allowNull: false,
         required: true
     },
+    bloco:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        required: true
+    },    
     senha: {
         type: DataTypes.STRING,
         allowNull: false,

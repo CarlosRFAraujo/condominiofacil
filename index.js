@@ -20,9 +20,14 @@ const Sugestao = require('./models/Sugestao')
 // importando controllers
 const Main = require('./controllers/Main')
 
+// Importando routers
+const autenticaRouter = require('./routes/autenticaRouter')
+const adminRouter = require('./routes/adminRouter')
+
 const app = express()
 
 app.engine('handlebars', hbs.engine())
+
 app.set('view engine', 'handlebars')
 
 app.use(express.static('public'))
@@ -56,6 +61,19 @@ app.use(
 
 app.use(flash())
 
+app.use(function (req, res, next) {
+
+    if (req.session.adminid) {
+        res.locals.session = req.session
+
+    }
+
+    next()
+})
+
+app.use('/adm', adminRouter)
+
+app.use('/', autenticaRouter)
 
 app.get('/', Main.principal)
 

@@ -1,0 +1,41 @@
+<div class="home">
+    <h1>Cadastro de Administradores e funcionários</h1>    
+    <div class="authcontainer">
+        <form action="/registrarfuncionario" method="post">
+            <div class="formulario">
+                <label for="cpf">Digite o CPF do usuário: </label>
+                <input type="text" name="cpf" placeholder="digite o CPF do colaborador">
+            </div>
+            <div class="formulario">
+                <label for="nome">Digite o nome do usuário: </label>
+                <input type="text" name="nome" placeholder="digite o nome do colaborador">
+            </div>
+            <div class="formulario">
+                <label for="funcao">Digite a função do usuário: </label>
+                <select name="funcao">
+                    <option value="sindico">Síndico</option>
+                    <option value="subsindico">SubSíndico</option>
+                    <option value="gerentepredial">Gerente Predial</option>
+                    <option value="zelador">Zelador</option>
+                    <option value="auxiliar">Auxiliar de Serviços Gerais</option>
+                    <option value="recepcionista">recepcionista</option>
+                    <option value="porteiro">Porteiro</option>
+                    <option value="supervisor">Supervisor de condomínio</option>
+                    <option value="vigia">Vigia</option>
+                    <option value="super">dev</option>
+                </select>
+            </div>
+            <div class="formulario">
+                <label for="senha">Digite a senha do usuário: </label>
+                <input type="password" name="senha" placeholder="digite senha do colaborador">
+            </div>
+            <div class="formulario">
+                <label for="senha">Confirmar a senha do usuário: </label>
+                <input type="password" name="confirmsenha" placeholder="digite novamente a senha do colaborador">
+            </div>
+            <div class="formulario">
+                <button type="submit">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -151,14 +151,6 @@ main .social ul img {
     justify-content: space-around;
 }
 
-.authcontainer h1 {
-    margin-bottom: 0%;
-    border-left:3px solid #684beb;
-}
-.authcontainer hr {
-    margin-bottom: 1em;
-}
-
 .formulario {
     display: flex;
     flex-direction: column;
@@ -175,6 +167,13 @@ main .social ul img {
 .formulario input {
     padding: 7px;
     border-radius: 4px;
+    border: 1px solid #684beb;
+}
+
+.formulario select {
+    font-size: 1.8rem;
+    border-radius: 4px;
+    padding: 7px;
     border: 1px solid #684beb;
 }
 

@@ -23,6 +23,7 @@
                         <nav>
                             <ul>
                                 {{#if session.adminid}}
+                                    <li><a href="/adm/">Home</a></li>
                                     <li>
                                         <div class="dropdown">
                                         <button href="#" class="dropdown-btn">Colaboradores</button>
@@ -41,7 +42,15 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li><a href="#">Mural de avisos</a></li>
+                                    <li>
+                                        <div class="dropdown">
+                                        <button href="#" class="dropdown-btn">Mural</button>
+                                            <div class="dropdown-filho">
+                                                <a href="/mural/criaMural">Cadastro de aviso/circular</a>
+                                                <a href="/mural/listarMural">Consultar/editar aviso</a>
+                                            </div>
+                                        </div>
+                                    </li>
                                     <li><a href="#">Reclamações</a></li>
                                     <li><a href="#">Serviços</a></li>
                                     <li><a href="#">Sugestões</a></li>

@@ -4,12 +4,12 @@ const connect = require('../database/connect')
 const Admin = require('./Admin')
 
 const Mural = connect.define('Mural', {
-    Titulo: {
+    titulo: {
         type: DataTypes.STRING,
         allowNull: false,
         required: true
     },
-    Texto: {
+    texto: {
         type: DataTypes.STRING,
         allowNull: false,
         required: true

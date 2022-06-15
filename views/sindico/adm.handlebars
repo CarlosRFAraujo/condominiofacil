@@ -1,1 +1,12 @@
-<h1>Portal da administração do condomínio</h1>
+<div class="home">
+    <h1>Portal da administração do condomínio</h1>
+    <div class="mural">
+        {{#each murals}}
+        <div class="aviso">
+            <h2>{{this.titulo}}</h2>
+            <p>{{this.texto}}</p>
+            <p>Ass: <span>{{this.nome}}</span></p>    
+        {{/each}}
+        </div>
+    </div>
+</div>

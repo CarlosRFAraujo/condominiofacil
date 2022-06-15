@@ -1,0 +1,18 @@
+<div class="home">
+    <h1>Portal da administração do condomínio</h1>
+    <div class="mural">
+        {{#each murals}}
+            <h2>{{this.titulo}}</h2>
+            <p>{{this.texto}}</p>
+            <p>Ass: <span>{{this.nome}}</span></p>
+            <div class="div-btn">
+                    <a href="/mural/editaMural/{{this.id}}" class="btn-pensamento">Editar</a>
+                    <form action="/mural/remover" method="post">
+                        <input type="hidden" name="id" value="{{this.id}}">
+                        <button type="submit">Excluir</button>
+                    </form>
+                </div>
+        {{/each}}
+        </div>
+    </div>
+</div>

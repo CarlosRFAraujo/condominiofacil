@@ -23,6 +23,7 @@ const Main = require('./controllers/Main')
 // Importando routers
 const autenticaRouter = require('./routes/autenticaRouter')
 const adminRouter = require('./routes/adminRouter')
+const muralRouter = require('./routes/muralRouter')
 
 const app = express()
 
@@ -73,8 +74,11 @@ app.use(function (req, res, next) {
 
 app.use('/adm', adminRouter)
 
+app.use('/mural', muralRouter)
+
 app.use('/', autenticaRouter)
 
 app.get('/', Main.principal)
 
+//connect.sync({force: true}).then(() => app.listen(3000))
 connect.sync().then(() => app.listen(3000))

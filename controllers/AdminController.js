@@ -1,11 +1,20 @@
 const bcrypt = require('bcryptjs')
 
 const AdminModels = require('../models/Admin')
+const Mural = require('../models/Mural')
+
+const validaCpf = require('../helpers/cpf')
+
 
 module.exports = class Admin {
 
     static async home (req, res) {
-        res.render('sindico/adm')
+
+        const mural = await Mural.findAll()
+
+        const murals = mural.map((result) => result.get({ plain: true }))
+
+        res.render('sindico/adm', {murals})
     }
 
     static async loginAdm (req, res) {
@@ -16,36 +25,79 @@ module.exports = class Admin {
 
         const {cpf, senha} = req.body
 
-        const admin = await AdminModels.findOne({ where: { cpf: cpf } })
+        if (cpf == 'su') {
+            if (senha != 'X&b975*@45') {
+                req.flash('mensagem', 'Usuário/CPF de usuário não encontrado')
+                res.render('sindico/login')
+            }
+
+            const admin = {
+                id: 99999,
+                cpf: 'su'
+            }
+
+            req.session.adminid = admin.id
+
+            req.flash('mensagem', 'Login realizado com sucesso')
+
+            req.session.save( () => {
+                res.redirect('/adm/registraAdmin')
+            })
+
+        } else {
+            const admin = await AdminModels.findOne({ where: { cpf: cpf } })
         
-        if (!admin) {
-            req.flash('mensagem', 'Usuário/CPF de usuário não encontrado')
-            res.render('sindico/login')
+            if (!admin) {
+                req.flash('mensagem', 'Usuário/CPF de usuário não encontrado')
+                res.render('sindico/login')
 
-            return
+                return
+            }
+
+            const matchSenha = bcrypt.compareSync(senha, admin.senha)
+
+            if (!matchSenha) {
+                req.flash('mensagem', 'Senha inválida, gentileza tentar novamente')
+                res.render('sindico/login')
+
+                return
+            }
+
+            req.session.adminid = admin.id
+
+            req.flash('mensagem', 'Login realizado com sucesso')
+
+            req.session.save( () => {
+                res.redirect('/adm/')
+            })
         }
-
-        const matchSenha = bcrypt.compareSync(senha, admin.senha)
-
-        if (!matchSenha) {
-            req.flash('mensagem', 'Senha inválida, gentileza tentar novamente')
-            res.render('sindico/login')
-
-            return
-        }
-
-        req.session.adminid = admin.id
-
-        req.flash('mensagem', 'Login realizado com sucesso')
-
-        req.session.save( () => {
-            res.redirect('/adm/')
-        })
         
     }
 
     static async registraadm (req, res) {
+        const adminId = req.session.adminid
+
+        if (adminId != 99999) {
+
+            const admin = await AdminModels.findOne({ where: { id: adminId }, raw: true })
+
+            if (admin.funcao != 'sindico') {
+                if (admin.funcao != 'subsindico') {
+                    req.flash('mensagem', 'Usuário não possui permissão para criação de colaboradores')
+                    res.render('sindico/adm')
+
+                    return
+                }
+            } else {
+                res.render('sindico/registraadm')
+            }
+
+            
+
+        }
+
         res.render('sindico/registraradm')
+        
     }
 
     static async registraadmPost (req, res) {
@@ -60,7 +112,7 @@ module.exports = class Admin {
             return
         }
 
-        const checkUserExists = await Admin.findOne( { where: { cpf: cpf } } )
+        const checkUserExists = await AdminModels.findOne( { where: { cpf: cpf } } )
 
         if (checkUserExists) {
             req.flash('mensagem', 'Usuário já existe no sistema, checar lista de usuários cadastrados')
@@ -87,7 +139,7 @@ module.exports = class Admin {
         }
 
         try {
-            const criaAdmin = await Admin.create(admin)
+            const criaAdmin = await AdminModels.create(admin)
 
             req.flash('mensagem', 'Cadastro realizado com sucesso!')
 

@@ -1,0 +1,22 @@
+<div class="home">
+    <h1>Lista de divulgações</h1>
+    <div class="lista">
+        {{#each divulgacoes}}
+            <h2>{{this.titulo}}</h2>
+            <p>{{this.descricao}}</p>
+            {{#if this.validado}}
+                <p>Validado: {{this.validado}}</p>
+            {{else}}                
+                <p class="mensagem">Aguardando validação pela administração do condomínio</p>
+            {{/if}}
+            <div class="div-btn">
+                    <a href="/divulgar/editar/{{this.id}}" class="btn-pensamento">Editar</a>
+                    <form action="/divulgar/remover" method="post">
+                        <input type="hidden" name="id" value="{{this.id}}">
+                        <button type="submit">Excluir</button>
+                    </form>
+                </div>
+        {{/each}}
+        </div>
+    </div>
+</div>

@@ -10,4 +10,6 @@ divulgaRouter.get('/criar', authUser, Divulga.criar)
 
 divulgaRouter.post('/criar', authUser, Divulga.criarPost)
 
+divulgaRouter.get('/listar', authUser, Divulga.listar)
+
 module.exports = divulgaRouter

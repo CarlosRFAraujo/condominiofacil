@@ -28,7 +28,18 @@ module.exports = class Divulga {
             valor: parseFloat(req.body.valor),
             apartamento: req.body.apartamento,
             bloco: req.body.bloco,
-            CPF: req.body.cpf
+            CPF: req.body.cpf,
+            UserId: userid
+        }
+
+        if ((divulgacao.categoria == 'aluguel') | (divulgacao.categoria == 'venda')) {
+            if (user.proprietario != 'sim') {
+                req.flash('mensagem', 'Usuário não possui autorização este tipo de divulgação')
+                res.redirect('/divulgar/criar')
+
+                return
+            }
+            
         }
 
         try {
@@ -36,10 +47,35 @@ module.exports = class Divulga {
 
             req.flash('mensagem', 'Divulgação criada com sucesso, a mesma será validada pela Administração do condomínio e estará divulgada na home em até 24 horas, caso não tenha nenhuma irregularidade.')
             res.redirect('/')
+
         } catch (error) {
             console.log(error)
             res.redirect('/divulgar/criar')
         }
+
+    }
+
+    static async listar (req, res) {
+        const userid = req.session.userid
+
+        if (!userid) {
+            res.redirect('/login')
+
+            return
+        }
+        
+        const divulgacao = await Divulcacao.findAll({
+            where: {
+                UserId: userid
+            }
+        })
+
+        const divulgacoes = divulgacao.map((result) => result.get({ plain: true }))
+
+        res.render('divulga/listar', { divulgacoes })
+    }
+
+    static async editar (req, res) {
 
     }
 }

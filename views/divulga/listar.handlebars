@@ -10,8 +10,7 @@
                 <p class="mensagem">Aguardando validação pela administração do condomínio</p>
             {{/if}}
             <div class="div-btn">
-                    <a href="/divulgar/editar/{{this.id}}" class="btn-pensamento">Editar</a>
-                    <form action="/divulgar/remover" method="post">
+                    <form action="/divulgar/excluir" method="post">
                         <input type="hidden" name="id" value="{{this.id}}">
                         <button type="submit">Excluir</button>
                     </form>

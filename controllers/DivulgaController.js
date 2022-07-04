@@ -75,7 +75,26 @@ module.exports = class Divulga {
         res.render('divulga/listar', { divulgacoes })
     }
 
-    static async editar (req, res) {
+    static async excluir (req, res) {
+        const userid = req.session.userid
 
+        const id = req.body.id
+
+        if (!userid) {
+            req.flash('mensagem', 'Gentileza realizar login!')
+            res.redirect('/login')
+
+            return
+        }
+
+        try {
+            await Divulcacao.destroy({ where: { id: id }})
+
+            req.flash('mensagem', 'Divulgação excluída com sucesso!')
+            res.redirect('/divulgar/listar')
+            
+        } catch (error) {
+            console.log(error)
+        }
     }
 }

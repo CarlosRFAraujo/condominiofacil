@@ -54,6 +54,16 @@
                 <label for="senha">Confirmar a senha do usuário: </label>
                 <input type="password" name="confirmsenha" placeholder="digite novamente a senha do usuário">
             </div>
+            <div class="form-checkbox">
+                <label for="bloco">É o proprietário do apartamento: </label>
+                <select name="proprietario">
+                    <option value="sim">Sim</option>
+                    <option value="nao">Não</option>
+                </select>
+            </div>
+            <div class="form-checkbox">
+                <input type="hidden" name="cpfValidador" value="{{admin.cpf}}">
+            </div>
             <div class="formulario">
                 <button type="submit">Cadastrar</button>
             </div>

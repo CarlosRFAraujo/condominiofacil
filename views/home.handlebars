@@ -1,8 +1,14 @@
 <div class="home">
     <h1>Bem vindo ao Condomínio Fácil!</h1>
-    <div class="apresentacao">    
-        <div>
-            <p>Protal do comdomínio.</p>
+    <div class="apresentacao">
+        {{#if session.userid}} 
+        <div class="aviso">            
+            {{#each murals}}
+                <h2>{{this.titulo}}</h2>
+                <p>{{this.texto}}</p>
+                <p class="ass">Ass: <span>{{this.nome}}</span></p>    
+            {{/each}}                
         </div>
+        {{/if}}
     </div>
 </div>

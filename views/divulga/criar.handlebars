@@ -1,0 +1,49 @@
+<div class="home">
+    <h1>Divulgar avisos à comunidade ou serviços/produtos:</h1>    
+    <div class="authcontainer">
+        <form action="/divulgar/criar" method="post">
+            <div class="formulario">
+                <label for="categoria">Categoria: </label>
+                <select name="categoria">
+                    <option value="aluguel">Alugar apartamento</option>
+                    <option value="anuncios">Comunicado à comunidade</option>
+                    <option value="venda">Verder apartamento</option>
+                    <option value="produtos">Venda de produtos</option>
+                    <option value="servicos">Prestação de serviços</option>
+                </select>
+            </div>
+            <div class="formulario">
+                <label for="titulo">Insira o título para conteúdo a ser divulgado: </label>
+                <input type="text" name="titulo" placeholder="ex.: Venda de doces gourmet">
+            </div>            
+            <div class="formulario">
+                <label for="descricao">Digite detalhadamente do que está sendo divulgado: </label>
+                <textarea name="descricao" rows="14">
+                            Produtos:
+Doces artesanais;
+Trufas;
+Brigadeiros;
+Pudins;
+Tortas;
+Bolo no pote.
+                </textarea>
+            </div>
+            <div class="formulario">
+                <label for="valor">Caso considere necessário, digite o valor do produto/serviço: </label>
+                <input type="texto" name="valor" placeholder="0.00">
+            </div>
+            <div class="formulario">
+                <input type="hidden" name="apartamento" value="{{user.apartamento}}">
+            </div>
+            <div class="formulario">
+                <input type="hidden" name="bloco" value="{{user.bloco}}">
+            </div>
+            <div class="formulario">
+                <input type="hidden" name="cpf" value="{{user.cpf}}">
+            </div>            
+            <div class="formulario">
+                <button type="submit">Criar</button>
+            </div>
+        </form>
+    </div>
+</div>

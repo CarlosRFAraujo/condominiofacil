@@ -9,101 +9,112 @@
 </head>
 <body>
     <div class="master">
-        <div>
-            <header>
-                    <div class="brand">
-                        <a href="#"><img src="/img/Meu-logo.png" alt=""></a>
-                    </div>
-                    <div class="menu">
-                        <div class="toggle">
-                            <div class="um"></div>
-                            <div class="dois"></div>
-                            <div class="tres"></div>
-                        </div>            
-                        <nav>
-                            <ul>
-                                {{#if session.adminid}}
-                                    <li><a href="/adm/">Home</a></li>
-                                    <li>
-                                        <div class="dropdown">
-                                        <button href="#" class="dropdown-btn">Colaboradores</button>
-                                            <div class="dropdown-filho">
-                                                <a href="/adm/registraAdmin">Cadastro de colaboradores</a>
-                                                <a href="/adm/consultaAdmin">Consultar colaboradores</a>
-                                            </div>
+        <header>
+                <div class="brand">
+                    <a href="#"><img src="/img/Meu-logo.png" alt=""></a>
+                </div>
+                <div class="menu">
+                    <div class="toggle">
+                        <div class="um"></div>
+                        <div class="dois"></div>
+                        <div class="tres"></div>
+                    </div>            
+                    <nav>
+                        <ul>                            
+                            {{#if session.adminid}}
+                                <li><a href="/adm/">Home</a></li>
+                                <li>
+                                    <div class="dropdown">
+                                    <button href="#" class="dropdown-btn">Colaboradores</button>
+                                        <div class="dropdown-filho">
+                                            <a href="/adm/registraAdmin">Cadastro de colaboradores</a>
+                                            <a href="/adm/consultarAdmin">Consultar colaboradores</a>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="dropdown">
-                                        <button href="#" class="dropdown-btn">Condôminos</button>
-                                            <div class="dropdown-filho">
-                                                <a href="#">Cadastro de condôminos</a>
-                                                <a href="#">Consultar/validar condôminos</a>
-                                            </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="dropdown">
+                                    <button href="#" class="dropdown-btn">Condôminos</button>
+                                        <div class="dropdown-filho">
+                                            <a href="/registrar">Cadastro de condôminos</a>
+                                            <a href="/listar">Listar condôminos</a>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="dropdown">
-                                        <button href="#" class="dropdown-btn">Mural</button>
-                                            <div class="dropdown-filho">
-                                                <a href="/mural/criaMural">Cadastro de aviso/circular</a>
-                                                <a href="/mural/listarMural">Consultar/editar aviso</a>
-                                            </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="dropdown">
+                                    <button href="#" class="dropdown-btn">Mural</button>
+                                        <div class="dropdown-filho">
+                                            <a href="/mural/criaMural">Cadastro de aviso/circular</a>
+                                            <a href="/mural/listarMural">Consultar/editar aviso</a>
                                         </div>
-                                    </li>
-                                    <li><a href="#">Reclamações</a></li>
-                                    <li><a href="#">Serviços</a></li>
-                                    <li><a href="#">Sugestões</a></li>
-                                    <li><a href="/adm/logoutAdmin">Sair</a></li></li>
+                                    </div>
+                                </li>
+                                <li><a href="/rec/reclamacoes">Reclamações</a></li>
+                                <li><a href="/serv/servicos">Serviços</a></li>
+                                <li><a href="/help/sugestoes">Sugestões</a></li>
+                                <li><a href="/adm/logoutAdmin">Sair</a></li></li>                            
+                            {{else}}
+                                {{#if session.userid}}
+                                <li><a href="/">Home</a></li>
+                                <li>
+                                    <div class="dropdown">
+                                    <button href="#" class="dropdown-btn">Divulgar</button>
+                                        <div class="dropdown-filho">
+                                            <a href="/divulgar/criar">Divulgar</a>
+                                            <a href="/divulgar/listar">Consultar divulgações</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a href="#">Reclamação</a></li>
+                                <li><a href="#">Serviços</a></li>
+                                <li><a href="#">Sugestões</a></li>
+                                <li><a href="/logout">Sair</a></li>
                                 {{else}}
-                                <li><a href="/adm/">Início</a></li>
-                                <li><a href="/adm/loginAdmin">Entrar</a></li>
-                                {{/if}}                                                                                            
-                            </ul>
-                        </nav>
-                    </div>        
-            </header>
-        </div>
-        <div>
-            <main>
-                <div class="container">
-                    {{#if messages.mensagem}}
-                        <div class="mensagem">
-                        {{messages.mensagem}}
-                        </div>                
-                    {{/if}}
-                    {{{body}}}                        
-                </div>
-            </main>
-        </div>
-        <div>
-            <footer>
-                <div>
-                    <p>Contatos:</p>
-                    <p>sindico@condominio.com.br</p>
-                    <p>telefone: +55 62 xxxx-xxxx</p>
-                </div>
-                <div>
-                    <img src="/img/CONVIVENCIA.jpg">
-                </div> 
-                <div class="dev">
-                    <div>
-                        <p><span>CondomínioFacil</span>&copy;2022</p>
-                        <p>Developed by Carlos Roberto Ferreira de Araújo</p>
-                        <p>e-mail: carlos.redestelecom@gmail.com</p>
-                        <p>Fone/WhatsApp: +55 62 9 9342-9196</p>
-                    </div>                    
-                    <div class="social">
-                        <ul>
-                            <li><a href="https://twitter.com/CarlosRedestele" target="_blank"><img src="/img/Twitter.png" alt=""></a></li>
-                            <li><a href="https://instagram.com/carlos_ferreiraaraujo" target="_blank"><img src="/img/Instagram.png" alt=""></a></li>
-                            <li><a href="https://github.com/CarlosRFAraujo" target="_blank"><img src="/img/github.png" alt=""></a></li>
-                            <li><a href="https://www.linkedin.com/in/carlos-araujo-b6b3143a" target="_blank"><img src="/img/linkedin.png" alt=""></a></li>
+                                    <li><a href="/login">Condômino</a></li>
+                                    <li><a href="/adm/loginAdmin">Administração</a></li>
+                                {{/if}}
+                            {{/if}}                                                                                            
                         </ul>
-                    </div>
+                    </nav>
+                </div>        
+        </header>
+        <main>
+            <div class="container">
+                {{#if messages.mensagem}}
+                    <div class="mensagem">
+                    {{messages.mensagem}}
+                    </div>                
+                {{/if}}
+                {{{body}}}                        
+            </div>
+        </main>
+        <footer>
+            <div>
+                <p>Contatos:</p>
+                <p>sindico@condominio.com.br</p>
+                <p>telefone: +55 62 xxxx-xxxx</p>
+            </div>
+            <div>
+                <img src="/img/CONVIVENCIA.jpg">
+            </div> 
+            <div class="dev">
+                <div>
+                    <p><span>CondomínioFacil</span>&copy;2022</p>
+                    <p>Developed by Carlos Roberto Ferreira de Araújo</p>
+                    <p>e-mail: carlos.redestelecom@gmail.com</p>
+                    <p>Fone/WhatsApp: +55 62 9 9342-9196</p>
+                </div>                    
+                <div class="social">
+                    <ul>
+                        <li><a href="https://twitter.com/CarlosRedestele" target="_blank"><img src="/img/Twitter.png" alt=""></a></li>
+                        <li><a href="https://instagram.com/carlos_ferreiraaraujo" target="_blank"><img src="/img/Instagram.png" alt=""></a></li>
+                        <li><a href="https://github.com/CarlosRFAraujo" target="_blank"><img src="/img/github.png" alt=""></a></li>
+                        <li><a href="https://www.linkedin.com/in/carlos-araujo-b6b3143a" target="_blank"><img src="/img/linkedin.png" alt=""></a></li>
+                    </ul>
                 </div>
-            </footer>
-        </div>
+            </div>
+        </footer>
     </div>
     <script src="/scripts/menu.js"></script>
 </body>

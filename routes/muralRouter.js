@@ -10,7 +10,7 @@ muralRouter.get('/criaMural', authAdmin, Mural.criaMural)
 
 muralRouter.post('/criaMural', authAdmin, Mural.criaMuralPost)
 
-muralRouter.get('/listarMural', authAdmin, Mural.listarMural)
+muralRouter.get('/listarMural', Mural.listarMural)
 
 muralRouter.get('/editaMural/:id', authAdmin, Mural.editar)
 

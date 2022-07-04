@@ -1,10 +1,10 @@
 <div class="home">
     <h1>Portal da administração do condomínio</h1>
     <div class="lista">
-        {{#each murals}}
-            <h2>{{this.titulo}}</h2>
-            <p>{{this.texto}}</p>
-            <p>Ass: <span>{{this.nome}}</span></p>
+        {{#each reclamacoes}}
+            <h2>{{this.tipo}}</h2>
+            <p>{{this.descriacao}}</p>
+            <p>Ass: <span>{{this.apartamento}}</span></p>
             <div class="div-btn">
                     <a href="/mural/editaMural/{{this.id}}" class="btn-pensamento">Editar</a>
                     <form action="/mural/remover" method="post">

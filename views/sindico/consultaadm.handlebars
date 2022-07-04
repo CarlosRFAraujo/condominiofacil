@@ -1,0 +1,48 @@
+<div class="home">
+    <h1>Lista de colaboradores</h1>
+    <div class="lista">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Função</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each admins}}
+                <tr>
+                    <td>{{this.nome}}</td>
+                    <td>{{this.funcao}}</td>                    
+                    <td>
+                        <div class="div-btn">
+                            <a href="/adm/editaradmin/{{this.id}}">Editar</a>
+                            <form action="/adm/reset" method="post">
+                                    <input type="hidden" name="id" value="{{this.id}}">
+                                    <button type="submit">Reset senha</button>
+                            </form>
+                            <form action="/adm/removeradmin" method="post">
+                                    <input type="hidden" name="id" value="{{this.id}}">
+                                    <button type="submit">Excluir</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                    <!--<ul>
+                        <li>{{this.nome}}</li>
+                        <li>{{this.apartamento}}</li>
+                        <li>{{this.bloco}}</li>
+                        <li>{{this.proprietario}}</li>
+                        <li>
+                            <form action="/mural/remover" method="post">
+                                <input type="hidden" name="id" value="{{this.id}}">
+                                <button type="submit">Excluir</button>
+                            </form>
+                        </li>
+                    </ul>-->
+                {{/each}}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>

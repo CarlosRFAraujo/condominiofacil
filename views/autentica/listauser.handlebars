@@ -1,0 +1,39 @@
+<div class="home">
+    <h1>Lista de usuários condôminos do condomínio</h1>
+    <div class="lista">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Apartamento</th>
+                    <th>Bloco</th>
+                    <th>Proprietário</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each users}}
+                <tr>
+                    <td>{{this.nome}}</td>
+                    <td>{{this.apartamento}}</td>
+                    <td>{{this.bloco}}</td>
+                    <td>{{this.proprietario}}</td>
+                    <td>
+                        <div class="div-btn">
+                            <form action="/resetsenha" method="post">
+                                    <input type="hidden" name="id" value="{{this.id}}">
+                                    <button type="submit">Reset senha</button>
+                            </form>
+                            <form action="/remover" method="post">
+                                    <input type="hidden" name="id" value="{{this.id}}">
+                                    <button type="submit">Excluir</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>

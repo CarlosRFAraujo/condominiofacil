@@ -15,6 +15,16 @@ adminRouter.get('/registraAdmin', verificaAdmin, Admin.registraadm)
 
 adminRouter.post('/registraAdmin', verificaAdmin, Admin.registraadmPost)
 
+adminRouter.get('/consultarAdmin', verificaAdmin, Admin.consultar)
+
+adminRouter.get('/editaradmin/:id', verificaAdmin, Admin.editarAdm)
+
+adminRouter.post('/editaradmin', verificaAdmin, Admin.editarAdmPost)
+
+adminRouter.post('/reset', verificaAdmin, Admin.resetSenha)
+
+adminRouter.post('/removeradmin', verificaAdmin, Admin.removeAdm)
+
 adminRouter.get('/',verificaAdmin, Admin.home)
 
 module.exports = adminRouter    

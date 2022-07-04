@@ -32,7 +32,6 @@ module.exports = class MuralController {
             AdminId: req.session.adminid
         }
 
-        console.log(mural)
 
         try {
             await Mural.create(mural)

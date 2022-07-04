@@ -4,17 +4,17 @@ const connect = require('../database/connect')
 const User = require('./User')
 
 const Divulgacao = connect.define('Divulgacao', {
-    tituloDivulgacao: {
+    categoria: {
         type: DataTypes.STRING,
         allowNull: false,
         required: true
     },
-    apartamento: {
+    titulo: {
         type: DataTypes.STRING,
         allowNull: false,
         required: true
     },
-    Descricao: {
+    descricao: {
         type: DataTypes.STRING,
         allowNull: false,
         required: true
@@ -23,9 +23,23 @@ const Divulgacao = connect.define('Divulgacao', {
         type: DataTypes.FLOAT,
         allowNull: true
     },
+    apartamento: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        required: true
+    },
+    bloco: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        required: true
+    },
     CPF: {
         type: DataTypes.STRING,
         allowNull: false,
+        required: true
+    },
+    validado: {
+        type: DataTypes.STRING,
         required: true
     }
 })

@@ -84,15 +84,11 @@ module.exports = class Admin {
             if (admin.funcao != 'sindico') {
                 if (admin.funcao != 'subsindico') {
                     req.flash('mensagem', 'Usuário não possui permissão para criação de colaboradores')
-                    res.render('sindico/adm')
+                    res.redirect('/adm/')
 
                     return
                 }
-            } else {
-                res.render('sindico/registraadm')
-            }
-
-            
+            }            
 
         }
 
@@ -107,7 +103,7 @@ module.exports = class Admin {
 
         if (!checaCPF) {
             req.flash('mensagem', 'Número de CPF inválido, gentileza conferir e digitar novamente')
-            res.render('autentica/registraradm')
+            res.redirect('/adm/registraAdmin')
 
             return
         }
@@ -116,14 +112,14 @@ module.exports = class Admin {
 
         if (checkUserExists) {
             req.flash('mensagem', 'Usuário já existe no sistema, checar lista de usuários cadastrados')
-            res.render('autentica/registraradm')
+            res.redirect('/adm/registraAdmin')
 
             return
         }
 
         if (senha != confirmsenha) {
             req.flash('mensagem', 'As senhas inseridas não conferem')
-            res.render('autentica/registraradm')
+            res.redirect('/adm/registraAdmin')
 
             return
         }
@@ -143,12 +139,187 @@ module.exports = class Admin {
 
             req.flash('mensagem', 'Cadastro realizado com sucesso!')
 
-            res.redirect('/')
+            res.redirect('/adm/')
 
         } catch (error) {
             console.log(error)
         }
     
+    }
+
+    static async consultar (req, res) {
+        const adminId = req.session.adminid
+
+        if (adminId != 99999) {
+
+            const admin = await AdminModels.findOne({ where: { id: adminId }, raw: true })
+
+            if (admin.funcao != 'sindico') {
+                if (admin.funcao != 'subsindico') {
+                    req.flash('mensagem', 'Usuário não possui permissão para criação de colaboradores')
+                    res.redirect('/adm/')
+
+                    return
+                }
+            }            
+
+        }
+
+        const admin = await AdminModels.findAll()
+
+        const admins = admin.map((result) => result.get({ plain: true }))
+
+        res.render('sindico/consultaadm', { admins })
+        
+    }
+
+    static async editarAdm (req, res) {
+
+        const adminId = req.session.adminid
+
+        if (adminId != 99999) {
+
+            const admin = await AdminModels.findOne({ where: { id: adminId }, raw: true })
+
+            if (admin.funcao != 'sindico') {
+                if (admin.funcao != 'subsindico') {
+                    req.flash('mensagem', 'Usuário não possui permissão para criação de colaboradores')
+                    res.redirect('/adm/')
+
+                    return
+                }
+            }            
+
+        }
+
+        const id = req.params.id
+
+        const admindata = await AdminModels.findOne({ where: { id: id }, raw: true })
+
+        res.render('sindico/editaradmin', { admindata })
+
+    }
+
+    static async editarAdmPost (req, res) {
+
+        const adminId = req.session.adminid
+
+        if (adminId != 99999) {
+
+            const admin = await AdminModels.findOne({ where: { id: adminId }, raw: true })
+
+            if (admin.funcao != 'sindico') {
+                if (admin.funcao != 'subsindico') {
+                    req.flash('mensagem', 'Usuário não possui permissão para criação de colaboradores')
+                    res.redirect('/adm/')
+
+                    return
+                }
+            }            
+
+        }
+
+        const id = req.body.id
+
+        const admin = {
+            cpf: req.body.cpf,
+            nome: req.body.nome,
+            funcao: req.body.funcao,
+        }
+
+                
+        try {
+
+            await AdminModels.update(admin, { where: { id: id } })
+
+            req.flash('mensagem', 'Colaborador alterado com sucesso')
+
+            res.redirect('/adm/')
+
+        } catch (error) {
+            console.log(error)
+        }
+        
+
+    }
+
+    static async resetSenha (req, res) {
+
+        const adminId = req.session.adminid
+
+        if (adminId != 99999) {
+
+            const admin = await AdminModels.findOne({ where: { id: adminId }, raw: true })
+
+            if (admin.funcao != 'sindico') {
+                if (admin.funcao != 'subsindico') {
+                    req.flash('mensagem', 'Usuário não possui permissão para criação de colaboradores')
+                    res.redirect('/adm/')
+
+                    return
+                }
+            }            
+
+        }
+
+        const id = req.body.id
+
+        const senha = '123456'
+        const salt = bcrypt.genSaltSync(10)
+        const hashedsenha = bcrypt.hashSync(senha, salt)
+
+        const admin = {
+            senha: hashedsenha
+        }
+
+        try {
+
+            await AdminModels.update(admin, { where: { id: id } })
+
+            req.flash('mensagem', 'Senha de colaborador reiniciada para 123456')
+
+            res.redirect('/adm/')
+
+        } catch (error) {
+            console.log(error)
+        }
+
+
+    }
+
+    static async removeAdm (req, res) {
+
+        const adminId = req.session.adminid
+
+        if (adminId != 99999) {
+
+            const admin = await AdminModels.findOne({ where: { id: adminId }, raw: true })
+
+            if (admin.funcao != 'sindico') {
+                if (admin.funcao != 'subsindico') {
+                    req.flash('mensagem', 'Usuário não possui permissão para criação de colaboradores')
+                    res.redirect('/adm/')
+
+                    return
+                }
+            }            
+
+        }
+
+        const id = req.body.id
+
+        try {
+
+            await AdminModels.destroy({ where: { id: id } })
+
+            req.flash('mensagem', 'Colaborador removido do sistema')
+
+            res.redirect('/adm/')
+
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
 
     static async logoutAdm (req, res) {

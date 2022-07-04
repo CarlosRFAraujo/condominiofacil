@@ -1,0 +1,33 @@
+<div class="home">
+    <h1>Editar administradores e funcionários</h1>    
+    <div class="authcontainer">
+        <form action="/adm/editarAdmin" method="post">
+            <input type="hidden" name="id" value="{{admindata.id}}">
+            <div class="formulario">
+                <label for="cpf">CPF do colaborador: </label>
+                <input type="text" name="cpf" value="{{admindata.cpf}}">
+            </div>
+            <div class="formulario">
+                <label for="nome">Nome do colaborador: </label>
+                <input type="text" name="nome" value="{{admindata.nome}}">
+            </div>
+            <div class="formulario">
+                <label for="funcao">Função do colaborador: </label>
+                <select name="funcao" value="{{admindata.funcao}}">
+                    <option value="sindico">Síndico</option>
+                    <option value="subsindico">SubSíndico</option>
+                    <option value="gerentepredial">Gerente Predial</option>
+                    <option value="zelador">Zelador</option>
+                    <option value="auxiliar">Auxiliar de Serviços Gerais</option>
+                    <option value="recepcionista">recepcionista</option>
+                    <option value="porteiro">Porteiro</option>
+                    <option value="supervisor">Supervisor de condomínio</option>
+                    <option value="vigia">Vigia</option>
+                </select>
+            </div>
+            <div class="formulario">
+                <button type="submit">Alterar</button>
+            </div>
+        </form>
+    </div>
+</div>

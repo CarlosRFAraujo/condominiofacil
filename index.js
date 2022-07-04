@@ -21,9 +21,12 @@ const Sugestao = require('./models/Sugestao')
 const Main = require('./controllers/Main')
 
 // Importando routers
-const autenticaRouter = require('./routes/autenticaRouter')
+const userRouter = require('./routes/userRouter')
 const adminRouter = require('./routes/adminRouter')
+const divulgaRouter = require('./routes/divulgaRouter')
 const muralRouter = require('./routes/muralRouter')
+const reclamacaoRouter = require('./routes/reclamacaoRouter')
+const servicosRouter = require('./routes/servicoRouter')
 
 const app = express()
 
@@ -67,18 +70,28 @@ app.use(function (req, res, next) {
     if (req.session.adminid) {
         res.locals.session = req.session
 
+    } else{
+        if (req.session.userid) {
+            res.locals.session = req.session
+        }
     }
 
     next()
 })
 
+app.use('/divulgar', divulgaRouter)
+
 app.use('/adm', adminRouter)
 
 app.use('/mural', muralRouter)
 
-app.use('/', autenticaRouter)
+app.use('/rec', reclamacaoRouter)
+
+app.use('/ser', servicosRouter)
+
+app.use('/', userRouter)
 
 app.get('/', Main.principal)
 
-//connect.sync({force: true}).then(() => app.listen(3000))
+// connect.sync({force: true}).then(() => app.listen(3000))
 connect.sync().then(() => app.listen(3000))

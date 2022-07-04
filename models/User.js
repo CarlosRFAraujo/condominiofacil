@@ -29,8 +29,8 @@ const User = connect.define('User', {
         allowNull: false,
         required: true
     },
-    validacao: {
-        type: DataTypes.BOOLEAN,
+    proprietario: {
+        type: DataTypes.STRING,
         required: true
     },
     cpfValidador: {

@@ -8,17 +8,7 @@ const Sugestao = connect.define('Sugestao', {
         type: DataTypes.STRING,
         allowNull: false,
         required: true
-    },
-    cpf: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        required: true
-    },
-    apartamento: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        required: true
-    },  
+    }, 
 })
 
 Sugestao.belongsTo(User)

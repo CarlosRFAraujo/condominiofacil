@@ -1,0 +1,23 @@
+<div class="home">
+    <h1>Abrir reclamação:</h1>    
+    <div class="authcontainer">
+        <form action="/serv/solicitar" method="post">
+            <div class="formulario">
+                <label for="servico">Tipo de serviço: </label>
+                <select name="servico">
+                    <option value="iluminacao">manutenção de iluminação de corredores/ambiente comum</option>                                        
+                    <option value="limpeza">Limpeza de corredores/ambiente comum</option>
+                    <option value="desentupimentos">Desentupimento de rede de esgoto</option>
+                    <option value="academia">Manutenção de aparelhos da academia</option>
+                </select>
+            </div>            
+            <div class="formulario">
+                <label for="observacao">Digite detalhadamente o serviço: </label>
+                <textarea name="observacao" rows="14">Ex.: Iluminação de quadra de esporte/parquinho e etc.</textarea>
+            </div>                   
+            <div class="formulario">
+                <button type="submit">Criar</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="home">
+    <h1>Abrir reclamação:</h1>    
+    <div class="authcontainer">
+        <form action="/rec/criar" method="post">
+            <div class="formulario">
+                <label for="tipoReclamacao">Categoria: </label>
+                <select name="tipoReclamacao">
+                    <option value="animais">Animais de estimação</option>                                        
+                    <option value="antena">Sinal da antena coletiva</option>
+                    <option value="barulho">Barulho excessivo</option>
+                    <option value="infestações">Infestações de insetos</option>
+                    <option value="infiltrações">Infiltrações na laje</option>
+                    <option value="estacionamento">Veículo estacionado em local impróprio</option>
+                </select>
+            </div>            
+            <div class="formulario">
+                <label for="descricaoOcorrido">Digite detalhadamente o problema ocorrido: </label>
+                <textarea name="descricaoOcorrido" rows="14"></textarea>
+            </div>                   
+            <div class="formulario">
+                <button type="submit">Criar</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -29,6 +29,8 @@ module.exports = class Admin {
             if (senha != 'X&b975*@45') {
                 req.flash('mensagem', 'Usuário/CPF de usuário não encontrado')
                 res.render('sindico/login')
+
+                return
             }
 
             const admin = {

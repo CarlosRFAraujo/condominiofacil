@@ -8,7 +8,7 @@ module.exports = class Divulga {
 
         const user = await User.findOne({ where: { id: userid }, raw: true })
 
-        if (!userid) {
+        if (!user) {
             req.flash('mensagem', 'Gentileza realizar o login novamente.')
             res.redirect('/login')
         }
@@ -21,14 +21,16 @@ module.exports = class Divulga {
 
         const user = await User.findOne({ where: { id: userid }, raw: true })
 
+        if (!user) {
+            req.flash('mensagem', 'Gentileza realizar o login novamente.')
+            res.redirect('/login')
+        }
+
         const divulgacao = {
             categoria: req.body.categoria,
             titulo: req.body.titulo,            
             descricao: req.body.descricao,
             valor: parseFloat(req.body.valor),
-            apartamento: req.body.apartamento,
-            bloco: req.body.bloco,
-            CPF: req.body.cpf,
             UserId: userid
         }
 

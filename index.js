@@ -27,6 +27,7 @@ const divulgaRouter = require('./routes/divulgaRouter')
 const muralRouter = require('./routes/muralRouter')
 const reclamacaoRouter = require('./routes/reclamacaoRouter')
 const servicosRouter = require('./routes/servicoRouter')
+const sugestaoRouter = require('./routes/sugestaoRouter')
 
 const app = express()
 
@@ -87,11 +88,15 @@ app.use('/mural', muralRouter)
 
 app.use('/rec', reclamacaoRouter)
 
-app.use('/ser', servicosRouter)
+app.use('/serv', servicosRouter)
+
+app.use('/sugestao', sugestaoRouter)
 
 app.use('/', userRouter)
 
 app.get('/', Main.principal)
 
-// connect.sync({force: true}).then(() => app.listen(3000))
 connect.sync().then(() => app.listen(3000))
+
+/*Usado na primeira carga da aplicação ou quando houver a necessidade de reset ou mudança no banco */
+//connect.sync({force: true}).then(() => app.listen(3000))

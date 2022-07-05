@@ -66,9 +66,25 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li><a href="#">Reclamação</a></li>
-                                <li><a href="#">Serviços</a></li>
-                                <li><a href="#">Sugestões</a></li>
+                                <li>
+                                    <div class="dropdown">
+                                    <button href="#" class="dropdown-btn">Reclamações</button>
+                                        <div class="dropdown-filho">
+                                            <a href="/rec/criar">Reclamar</a>
+                                            <a href="/rec/minhas">Consultar reclamações</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="dropdown">
+                                    <button href="#" class="dropdown-btn">Serviços</button>
+                                        <div class="dropdown-filho">
+                                            <a href="/serv/solicitar">Solicitar</a>
+                                            <a href="/serv/minhas">Consultar Solicitações</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a href="/sugestao/sugerir">Sugestões</a></li>
                                 <li><a href="/logout">Sair</a></li>
                                 {{else}}
                                     <li><a href="/login">Condômino</a></li>

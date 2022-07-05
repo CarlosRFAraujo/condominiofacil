@@ -1,0 +1,26 @@
+<div class="home">
+    <h1>Minhas Solicitações de serviços:</h1>
+    <div class="lista">
+        {{#each servicos}}
+            <h2>{{this.servico}}</h2>
+            <p>{{this.observacao}}</p>
+            {{#if this.Validado}}
+                <p>Solicitação validada</p>
+            {{else}}
+                <p>Aguardando validação</p>
+            {{/if}}
+            {{#if this.executado}}
+                <p>Serviço executado</p>
+            {{else}}
+                <p>Agardando execução</p>
+            {{/if}}
+            <div class="div-btn">
+                    <form action="/serv/excluir" method="post">
+                        <input type="hidden" name="id" value="{{this.id}}">
+                        <button type="submit">Excluir</button>
+                    </form>
+                </div>
+        {{/each}}
+        </div>
+    </div>
+</div>

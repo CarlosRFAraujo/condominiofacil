@@ -4,6 +4,7 @@
         {{#each divulgacoes}}
             <h2>{{this.titulo}}</h2>
             <p>{{this.descricao}}</p>
+            <p>Valor: R$ {{this.valor}}</p>
             {{#if this.validado}}
                 <p>Validado: {{this.validado}}</p>
             {{else}}                

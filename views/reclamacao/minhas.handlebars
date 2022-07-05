@@ -1,0 +1,22 @@
+<div class="home">
+    <h1>Minhas Reclamações:</h1>
+    <div class="lista">
+        {{#each reclamacoes}}
+            <h2>{{this.tipoReclamacao}}</h2>
+            <p>{{this.descricaoOcorrido}}</p>
+            {{#if this.verifica}}
+                <p>Reclamação verificada</p>
+            {{else}}
+                <p>Aguardando atendimento</p>
+            {{/if}}
+            <p>Ação tomada: {{this.solucao}}</p>
+            <div class="div-btn">
+                    <form action="/rec/excluir" method="post">
+                        <input type="hidden" name="id" value="{{this.id}}">
+                        <button type="submit">Excluir</button>
+                    </form>
+                </div>
+        {{/each}}
+        </div>
+    </div>
+</div>

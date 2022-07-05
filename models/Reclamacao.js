@@ -9,16 +9,6 @@ const Reclamacao = connect.define('Reclamacao', {
         allowNull: false,
         required: true
     },
-    cpf: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        required: true
-    },
-    apartamento: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        required: true
-    },
     descricaoOcorrido: {
         type: DataTypes.STRING,
         allowNull: false,

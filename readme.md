@@ -1,3 +1,4 @@
+Condomínio Fácil versão 1.0
 O escopo deste projeto visa a criação de um sistema de gestão de condomínios;
 Os termos de uso e licença estão destritos sob licenças Licença BSD 3.0
 Para a implementação deste projeto foram utilizadas as seguintes dependências de módulos externos:
@@ -13,7 +14,6 @@ Para a implementação deste projeto foram utilizadas as seguintes dependências
 "sequelize": "^6.20.1";
 "session-file-store": "^1.5.0"
 
-Instalando módulos externos necessários para o projeto: 
-> npm install bcryptjs connect-flash cookie-parser cookie-session express express-flash express-handlebars express-session sequelize session-file-store mysql2
+O projeto backend foi desenvolvido 100% com nodejs e nesta versão 1.0 o frontend desenvolvido com o Handlebars.
 
 

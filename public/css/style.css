@@ -99,21 +99,26 @@ header {
     flex-direction: column;
 }
 
-.apresentacao {
-    background-image: url('/img/fundo.jpg');
-    border-radius: 5px;
-    min-width: 82vw;
-    max-width: 88vw;
-    margin: 0.5em auto;
-    padding: 1em;
-    color: rgb(68, 53, 41);
-}
-
 .mensagem{
     font-size: 1.6rem;
     color: red;
     text-align: center;
     margin: auto;
+}
+
+.home {
+    text-align: center;
+    size-adjust: auto;
+}
+
+.apresentacao {
+    display: block;
+    background-image: url('/img/fundo.jpg');
+    border-radius: 5px;
+    min-width: 82vw;
+    margin: 0.5em auto;
+    padding: 1em;
+    color: rgb(68, 53, 41);
 }
 
 .apresentacao h1{
@@ -123,30 +128,6 @@ header {
 .apresentacao h1, .apresentacao p {
     
     margin-bottom: 0.5em;
-}
-
-main .social {
-    margin: auto 0.5em 0.5em;
-    padding: 0.5em;
-    position: fixed;
-}
-
-main .social ul{
-    list-style: none;
-}
-
-main .social ul img {
-    max-width: 40px;
-}
-
-.home {
-    text-align: center;
-    size-adjust: auto;
-}
-
-.apresentacao {
-    display: flex;
-    justify-content: space-around;
 }
 
 .authcontainer {

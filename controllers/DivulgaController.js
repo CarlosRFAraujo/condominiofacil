@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const Admin = require('../models/Admin')
 const Divulcacao = require('../models/Divulgacao')
 
 module.exports = class Divulga {
@@ -77,6 +78,104 @@ module.exports = class Divulga {
         res.render('divulga/listar', { divulgacoes })
     }
 
+    static async sindico (req, res) {
+
+        const adminid = req.session.adminid
+
+        if(adminid == 99999) {
+            req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
+            res.redirect('/')
+
+            return
+        }
+
+        const admin = await Admin.findOne({ where: { id: adminid }, raw: true })
+
+        if (admin.funcao != 'sindico') {
+            if (admin.funcao != 'subsindico') {
+                req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
+                res.redirect('/')
+
+                return
+            }
+            
+        }
+
+        const divulgacao = await Divulcacao.findAll()
+        const divulgacoes = divulgacao.map((result) => result.get({ plain: true }))
+
+        res.render('divulga/dashboard', { divulgacoes })
+    }
+
+    static async validar (req, res) {
+        const adminid = req.session.adminid
+
+        if(adminid == 99999) {
+            req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
+            res.redirect('/')
+
+            return
+        }
+
+        const admin = await Admin.findOne({ where: { id: adminid }, raw: true })
+
+        if (admin.funcao != 'sindico') {
+            if (admin.funcao != 'subsindico') {
+                req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
+                res.redirect('/')
+
+                return
+            }
+            
+        }
+
+        const divulgacao = {
+            id: req.body.id,
+            validado: req.body.validado,
+            motivo: req.body.motivo
+        }
+
+        try {
+            await Divulcacao.update(divulgacao, { where: { id: divulgacao.id } })
+
+            req.flash('mensagem', 'Divulgacão tratada com sucesso')
+            res.redirect('/divulgar/pendentes')
+            
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    static async pendentes (req, res) {
+
+        const adminid = req.session.adminid
+
+        if(adminid == 99999) {
+            req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
+            res.redirect('/')
+
+            return
+        }
+
+        const admin = await Admin.findOne({ where: { id: adminid }, raw: true })
+
+        if (admin.funcao != 'sindico') {
+            if (admin.funcao != 'subsindico') {
+                req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
+                res.redirect('/')
+
+                return
+            }
+            
+        }
+
+        const divulgacao = await Divulcacao.findAll()
+        const divulgacoes = divulgacao.map((result) => result.get({ plain: true }))
+
+        res.render('divulga/pendentes', { divulgacoes })
+    }
+
     static async excluir (req, res) {
         const userid = req.session.userid
 
@@ -88,6 +187,34 @@ module.exports = class Divulga {
 
             return
         }
+
+        try {
+            await Divulcacao.destroy({ where: { id: id }})
+
+            req.flash('mensagem', 'Divulgação excluída com sucesso!')
+            res.redirect('/divulgar/listar')
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    static async remove (req, res) {
+        const adminid = req.session.adminid
+
+        const admin = await Admin.findOne({ where: { id: adminid } })
+
+        if (admin.funcao != 'sindico') {
+            if (admin.funcao != 'subsindico') {
+                req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
+                res.redirect('/')
+
+                return
+            }
+            
+        }
+
+        const id = req.body.id
 
         try {
             await Divulcacao.destroy({ where: { id: id }})

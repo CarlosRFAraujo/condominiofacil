@@ -16,4 +16,6 @@ reclamacaoRouter.post('/excluir', authUser, ReclamacaoController.excluir)
 
 reclamacaoRouter.get('/reclamacoes', authAdmin, ReclamacaoController.listarReclamacao)
 
+reclamacaoRouter.get('/atendidas', authAdmin, ReclamacaoController.atendidas)
+
 module.exports = reclamacaoRouter

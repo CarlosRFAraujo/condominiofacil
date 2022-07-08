@@ -1,14 +1,28 @@
 <div class="home">
     <h1>Bem vindo ao Condomínio Fácil!</h1>
     <div class="apresentacao">
-        {{#if session.userid}} 
-        <div class="aviso">            
-            {{#each murals}}
-                <h2>{{this.titulo}}</h2>
-                <p>{{this.texto}}</p>
-                <p class="ass">Ass: <span>{{this.nome}}</span></p>    
-            {{/each}}                
-        </div>
+        {{#if session.userid}}
+            {{#if murals}}
+                <div class="aviso">
+                <h2>Avisos/Circulares:</h2>        
+                {{#each murals}}
+                    <h3>{{this.titulo}}</h3>
+                    <p>{{this.texto}}</p>
+                    <p class="ass">Ass: <span>{{this.nome}}</span></p>    
+                {{/each}}                
+                </div>
+            {{/if}}
         {{/if}}
+        <div class="aviso">
+            <h2>Espaço da comunidade:</h2>
+            {{#each divulgacoes}}
+                <h3>{{this.titulo}}</h3>
+                <p>{{this.descricao}}</p>
+                {{#if this.valor}}
+                    <p>Valor: R$ {{this.valor}}</p>
+                {{/if}}            
+            {{/each}}    
     </div>
+        </div>
+        
 </div>

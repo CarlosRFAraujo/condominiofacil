@@ -1,0 +1,35 @@
+<div class="home">
+    <h1>Lista de divulgações validadas pela administração do Condomínio:</h1>
+    <div class="lista">
+        {{#each divulgacoes}}
+            {{#if this.validado}}
+                <table>
+                    <thead>
+                        <th>categoria:</th>
+                        <th>Título:</th>
+                        <th>Descrição:</th>
+                        <th>Validar</th>
+                        <th>Motivo(em caso não válido):</th>
+                        <th>Data/hora de criação</th>
+                        <th>Ação:</th>
+                    </thead>
+                    <tr>
+                        <td>{{this.categoria}}</td>
+                        <td>{{this.titulo}}</td>
+                        <td>{{this.descricao}}</td> 
+                        <td>{{this.validado}}</td>
+                        <td>{{this.motivo}}</td>
+                        <td>{{this.createdAt}}</td>
+                        <td>
+                            <form action="/divulgar/remover" method="post">
+                                <input type="hidden" name="id" value="{{this.id}}">                        
+                                <button type="submit">Excluir</button>
+                            </form>
+                        </td>                            
+                    </tr>
+                </table>
+            {{/if}}           
+        {{/each}}
+        </div>
+    </div>
+</div>

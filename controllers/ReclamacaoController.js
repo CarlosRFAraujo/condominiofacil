@@ -113,8 +113,29 @@ module.exports = class ReclamacaoController {
 
         const reclamacoes = reclamacao.map((result) => result.get({ plain: true }))
 
-        res.render('sindico/reclamacao/listareclamacao', { reclamacoes })
+        res.render('reclamacao/listareclamacao', { reclamacoes })
 
+    }
+
+    static async atendidas (req, res) {
+        const adminId = req.session.adminid
+
+        const admin = await AdminModels.findOne({ where: { id: adminId }, raw: true })
+
+        if (admin.funcao != 'sindico') {
+            if (admin.funcao != 'subsindico') {
+                req.flash('mensagem', 'Usuário não possui permissão para criação de aviso ou circular')
+                res.render('sindico/adm')
+
+                return
+            }       
+        }
+
+        const reclamacao = await Reclamacao.findAll()
+
+        const reclamacoes = reclamacao.map((result) => result.get({ plain: true }))
+
+        res.render('reclamacao/atendidas', { reclamacoes })
     }
 /*
     static async veficicar (req, res) {

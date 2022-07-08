@@ -26,6 +26,10 @@ const Divulgacao = connect.define('Divulgacao', {
     validado: {
         type: DataTypes.STRING,
         required: true
+    },
+    motivo: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
 })
 

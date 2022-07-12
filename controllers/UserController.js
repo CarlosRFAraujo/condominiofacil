@@ -2,9 +2,10 @@ const bcrypt = require('bcryptjs')
 
 const User = require('../models/User')
 const AdminModels = require('../models/Admin')
-const Mural = require('../models/Mural')
+const divulgacao = require('../models/Divulgacao')
 
 const validaCpf = require('../helpers/cpf')
+const Divulgacao = require('../models/Divulgacao')
 
 module.exports = class Autentica {
     static async login (req, res) {
@@ -71,6 +72,24 @@ module.exports = class Autentica {
     }
 
     static async registrarPost (req, res) {
+        const adminId = req.session.adminid
+
+        if (adminId != 99999) {
+
+            const admin = await AdminModels.findOne({ where: { id: adminId }, raw: true })
+
+            if (admin.funcao != 'sindico') {
+                if (admin.funcao != 'subsindico') {
+                    req.flash('mensagem', 'Usuário não possui permissão para criação de condôminos')
+                    res.render('sindico/adm')
+
+                    return
+
+                }
+
+            }
+        }
+        
         const {cpf, nome, apartamento, bloco, senha, confirmsenha, proprietario, cpfValidador} = req.body
 
         const checaCPF = await validaCpf(cpf)
@@ -121,7 +140,8 @@ module.exports = class Autentica {
             bloco,            
             senha: hashedsenha,
             proprietario,
-            cpfValidador
+            cpfValidador,
+            AdminId: adminId,
         }
 
         try {
@@ -234,9 +254,80 @@ module.exports = class Autentica {
 
         try {
             
+            await Divulgacao.destroy({ where: { UserId: id}})
+
             await User.destroy({ where: { id: id } })
+                        
             req.flash('mensagem', 'Usuário removido com sucesso')
             res.redirect('/listar')
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    static async alterar (req, res){
+        const userid = req.session.userid
+
+        const user = await User.findOne({ where: { id: userid }, raw: true })
+
+        if (!user) {
+            req.flash('mensagem', 'Erro de sessão de usuário, gentileza logar novamente')
+            res.redirect('/login')
+
+            return
+        }
+
+        res.render('autentica/alterar', { user })
+    }
+
+    static async alterarPost (req, res){
+        const userid = req.session.userid
+
+        const user = await User.findOne({ where: { id: userid }, raw: true })
+
+        if (!user) {
+            req.flash('mensagem', 'Erro de sessão de usuário, gentileza logar novamente')
+            res.redirect('/login')
+
+            return
+        }
+
+        const antigasenha = req.body.antigasenha
+
+        const matchSenha = bcrypt.compareSync(antigasenha, user.senha)
+
+        if (!matchSenha) {
+            req.flash('mensagem', 'Senha atual inválida, gentileza tentar novamente')
+            res.redirect('/login')
+
+            return
+        }
+
+        const senha = req.body.senha
+
+        const confirmsenha = req.body.confirmsenha
+
+        if (senha != confirmsenha) {
+            req.flash('mensagem', 'As novas senhas inseridas não conferem')
+            res.render('/alterar')
+
+            return
+        }
+        
+        const salt = bcrypt.genSaltSync(10)
+        const hashedsenha = bcrypt.hashSync(senha, salt)
+
+        const changeUser = {
+            senha: hashedsenha
+        }
+
+        try {
+            await User.update(changeUser, {where: { id: userid } })
+
+            req.flash('mensagem', 'Senha alterada com sucesso!')
+            res.redirect('/')
+
         } catch (error) {
             console.log(error)
         }

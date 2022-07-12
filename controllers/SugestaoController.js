@@ -46,4 +46,40 @@ module.exports = class SugestaoController {
             console.log(error)
         }
     }
+
+    static async listar (req, res){
+        const adminid = req.session.adminid
+
+        if (!adminid) {
+            res.redirect('/adm')
+
+            return
+        }
+
+        if(adminid == 99999) {
+            req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
+            res.redirect('/adm')
+
+            return
+        }
+
+        const admin = await AdminModels.findOne({ where: { id: adminid }, raw: true })
+
+        if (admin.funcao != 'sindico') {
+            if (admin.funcao != 'subsindico') {
+                req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
+                res.redirect('/adm')
+
+                return
+            }
+            
+        }
+
+        const sugestao = await Sugestao.findAll({ include: User })
+
+        const sugestoes = sugestao.map((result) => result.get({ plain: true }))
+
+        res.render('sugestao/listar', { sugestoes })
+
+    }
 }

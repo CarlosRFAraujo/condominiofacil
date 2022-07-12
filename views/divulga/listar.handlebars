@@ -6,7 +6,7 @@
             <p>{{this.descricao}}</p>
             <p>Valor: R$ {{this.valor}}</p>
             {{#if this.validado}}
-                <p>Validado: {{this.validado}}</p>
+                <p>Validado: {{this.validado}} Motivo: {{this.motivo}}</p>
             {{else}}                
                 <p class="mensagem">Aguardando validação pela administração do condomínio</p>
             {{/if}}

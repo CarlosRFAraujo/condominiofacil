@@ -13,6 +13,10 @@ router.get('/registrar', authAdmin, User.registrar)
 
 router.post('/registrar', authAdmin, User.registrarPost)
 
+router.get('/alterar', authUser, User.alterar)
+
+router.post('/alterar', authUser, User.alterarPost)
+
 router.get('/listar', authAdmin, User.listarUsers)
 
 router.post('/resetsenha', authAdmin, User.reset)

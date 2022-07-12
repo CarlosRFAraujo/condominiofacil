@@ -8,6 +8,8 @@
                     <th>categoria:</th>
                     <th>Título:</th>
                     <th>Descrição:</th>
+                    <th>Usuário</th>
+                    <th>Apartamento</th>
                     <th>Validar</th>
                     <th>Motivo(em caso não válido):</th>
                     <th>Ação:</th>
@@ -16,6 +18,8 @@
                     <td>{{this.categoria}}</td>
                     <td>{{this.titulo}}</td>
                     <td>{{this.descricao}}</td>
+                    <td>{{this.User.nome}}</td>
+                    <td>{{this.User.apartamento}} - {{this.User.bloco}}</td>
                     <form action="/divulgar/validar" method="post">
                     <input type="hidden" name="id" value="{{this.id}}">
                         <td>

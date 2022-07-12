@@ -7,6 +7,12 @@ module.exports = class Divulga {
     static async criar (req, res) {
         const userid = req.session.userid
 
+        if (!userid) {
+            req.flash('mensagem', 'Gentileza realizar login novamente')
+            res.redirect('/login')
+            return
+        }
+
         const user = await User.findOne({ where: { id: userid }, raw: true })
 
         if (!user) {
@@ -19,6 +25,12 @@ module.exports = class Divulga {
     
     static async criarPost (req, res) {
         const userid = req.session.userid
+
+        if (!userid) {
+            req.flash('mensagem', 'Gentileza realizar login novamente')
+            res.redirect('/login')
+            return
+        }
 
         const user = await User.findOne({ where: { id: userid }, raw: true })
 
@@ -62,8 +74,8 @@ module.exports = class Divulga {
         const userid = req.session.userid
 
         if (!userid) {
+            req.flash('mensagem', 'Gentileza realizar login novamente')
             res.redirect('/login')
-
             return
         }
         
@@ -81,6 +93,12 @@ module.exports = class Divulga {
     static async sindico (req, res) {
 
         const adminid = req.session.adminid
+
+        if (!adminid) {
+            res.redirect('/adm')
+
+            return
+        }
 
         if(adminid == 99999) {
             req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
@@ -101,7 +119,7 @@ module.exports = class Divulga {
             
         }
 
-        const divulgacao = await Divulcacao.findAll()
+        const divulgacao = await Divulcacao.findAll({ include: User })
         const divulgacoes = divulgacao.map((result) => result.get({ plain: true }))
 
         res.render('divulga/dashboard', { divulgacoes })
@@ -110,9 +128,15 @@ module.exports = class Divulga {
     static async validar (req, res) {
         const adminid = req.session.adminid
 
+        if (!adminid) {
+            res.redirect('/adm')
+
+            return
+        }
+
         if(adminid == 99999) {
             req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
-            res.redirect('/')
+            res.redirect('/adm/')
 
             return
         }
@@ -122,7 +146,7 @@ module.exports = class Divulga {
         if (admin.funcao != 'sindico') {
             if (admin.funcao != 'subsindico') {
                 req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
-                res.redirect('/')
+                res.redirect('/adm/')
 
                 return
             }
@@ -151,6 +175,12 @@ module.exports = class Divulga {
 
         const adminid = req.session.adminid
 
+        if (!adminid) {
+            res.redirect('/adm')
+
+            return
+        }
+
         if(adminid == 99999) {
             req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
             res.redirect('/')
@@ -170,7 +200,7 @@ module.exports = class Divulga {
             
         }
 
-        const divulgacao = await Divulcacao.findAll()
+        const divulgacao = await Divulcacao.findAll({ include: User })
         const divulgacoes = divulgacao.map((result) => result.get({ plain: true }))
 
         res.render('divulga/pendentes', { divulgacoes })
@@ -202,12 +232,18 @@ module.exports = class Divulga {
     static async remove (req, res) {
         const adminid = req.session.adminid
 
+        if (!adminid) {
+            res.redirect('/adm')
+
+            return
+        }
+
         const admin = await Admin.findOne({ where: { id: adminid } })
 
         if (admin.funcao != 'sindico') {
             if (admin.funcao != 'subsindico') {
                 req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
-                res.redirect('/')
+                res.redirect('/adm/')
 
                 return
             }
@@ -220,7 +256,7 @@ module.exports = class Divulga {
             await Divulcacao.destroy({ where: { id: id }})
 
             req.flash('mensagem', 'Divulgação excluída com sucesso!')
-            res.redirect('/divulgar/listar')
+            res.redirect('/divulgar/divulgacoes')
             
         } catch (error) {
             console.log(error)

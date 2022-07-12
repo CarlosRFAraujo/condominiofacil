@@ -1,0 +1,22 @@
+<div class="home">
+    <h1>Sugestões da comunidade:</h1>
+    <div class="lista">
+        {{#each sugestoes}}
+            <table>
+                <thead>
+                    <th class="extra">Sugestão</th>
+                    <th class="maior">Usuário:</th>
+                    <th>Apartamento:</th>
+                    <th>Data da sugestão</th>
+                </thead>
+                <tr>
+                    <td>{{this.sugestao}}</td>
+                    <td>{{this.User.nome}}</td>
+                    <td>{{this.User.apartamento}} - {{this.User.bloco}}</td>
+                    <td>{{this.createdAt}}</td>        
+                </tr>
+            </table>               
+        {{/each}}
+        </div>
+    </div>
+</div>

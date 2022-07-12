@@ -141,6 +141,19 @@ header {
 
 }
 
+.container-order {
+    display: flex;
+    text-align: center;
+}
+
+.container-order span{
+    margin-right: 0.5em;
+}
+
+.container-order form button{
+    margin-right: 0.5em;
+}
+
 .formulario {
     display: flex;
     flex-direction: column;
@@ -242,6 +255,15 @@ header {
 
 .lista table td{
     border: 1px solid #684beb;
+    width: 100px;
+}
+
+.lista table .maior {
+    width: 250px;
+}
+
+.lista table .extra {
+    width: 350px;
 }
 
 .div-btn {

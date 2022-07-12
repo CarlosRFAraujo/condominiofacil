@@ -8,6 +8,8 @@ const sugestaoRouter = express.Router()
 
 sugestaoRouter.get('/sugerir', authUser, SugestaoController.sugerir)
 
+sugestaoRouter.get('/lista', authAdmin, SugestaoController.listar)
+
 sugestaoRouter.post('/sugerir', authUser, SugestaoController.sugerirpost)
 
 module.exports = sugestaoRouter

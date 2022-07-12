@@ -8,6 +8,12 @@ module.exports = class ReclamacaoController {
 
         const userid = req.session.userid
 
+        if (!userid) {
+            req.flash('mensagem', 'Gentileza realizar login novamente')
+            res.redirect('/login')
+            return
+        }
+
         const user = await User.findOne({ where: { id: userid }, raw: true })
 
         if (!user) {
@@ -23,6 +29,12 @@ module.exports = class ReclamacaoController {
 
         const userid = req.session.userid
 
+        if (!userid) {
+            req.flash('mensagem', 'Gentileza realizar login novamente')
+            res.redirect('/login')
+            return
+        }
+
         const user = await User.findOne({ where: { id: userid }, raw: true })
 
         if (!user) {
@@ -35,6 +47,7 @@ module.exports = class ReclamacaoController {
         const reclamacao = {
             tipoReclamacao: req.body.tipoReclamacao,
             descricaoOcorrido: req.body.descricaoOcorrido,
+            Verificada: false,
             UserId: userid
         }
 
@@ -52,6 +65,12 @@ module.exports = class ReclamacaoController {
 
     static async minhasRec (req, res) {
         const userid = req.session.userid
+
+        if (!userid) {
+            req.flash('mensagem', 'Gentileza realizar login novamente')
+            res.redirect('/login')
+            return
+        }
 
         const user = await User.findOne({ where: { id: userid }, raw: true })
 
@@ -71,6 +90,12 @@ module.exports = class ReclamacaoController {
 
     static async excluir (req, res) {
         const userid = req.session.userid
+
+        if (!userid) {
+            req.flash('mensagem', 'Gentileza realizar login novamente')
+            res.redirect('/login')
+            return
+        }
 
         const user = await User.findOne({ where: { id: userid }, raw: true })
 
@@ -96,20 +121,34 @@ module.exports = class ReclamacaoController {
 
     static async listarReclamacao (req, res) {
 
-        const adminId = req.session.adminid
+        const adminid = req.session.adminid
 
-        const admin = await AdminModels.findOne({ where: { id: adminId }, raw: true })
+        if (!adminid) {
+            res.redirect('/adm')
+
+            return
+        }
+
+        if(adminid == 99999) {
+            req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
+            res.redirect('/')
+
+            return
+        }
+
+        const admin = await AdminModels.findOne({ where: { id: adminid }, raw: true })
 
         if (admin.funcao != 'sindico') {
             if (admin.funcao != 'subsindico') {
-                req.flash('mensagem', 'Usuário não possui permissão para criação de aviso ou circular')
-                res.render('sindico/adm')
+                req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
+                res.redirect('/')
 
                 return
-            }       
+            }
+            
         }
 
-        const reclamacao = await Reclamacao.findAll()
+        const reclamacao = await Reclamacao.findAll({ include: User })
 
         const reclamacoes = reclamacao.map((result) => result.get({ plain: true }))
 
@@ -117,69 +156,86 @@ module.exports = class ReclamacaoController {
 
     }
 
-    static async atendidas (req, res) {
-        const adminId = req.session.adminid
+    static async atender(req, res) {
+        const adminid = req.session.adminid
 
-        const admin = await AdminModels.findOne({ where: { id: adminId }, raw: true })
+        if (!adminid) {
+            res.redirect('/adm')
 
-        if (admin.funcao != 'sindico') {
-            if (admin.funcao != 'subsindico') {
-                req.flash('mensagem', 'Usuário não possui permissão para criação de aviso ou circular')
-                res.render('sindico/adm')
-
-                return
-            }       
+            return
         }
 
-        const reclamacao = await Reclamacao.findAll()
+        if(adminid == 99999) {
+            req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
+            res.redirect('/')
 
-        const reclamacoes = reclamacao.map((result) => result.get({ plain: true }))
-
-        res.render('reclamacao/atendidas', { reclamacoes })
-    }
-/*
-    static async veficicar (req, res) {
-        const adminId = req.session.adminid
-
-        const admin = await AdminModels.findOne({ where: { id: adminId }, raw: true })
-
-        if (admin.funcao != 'sindico') {
-            if (admin.funcao != 'subsindico') {
-                req.flash('mensagem', 'Usuário não possui permissão para criação de aviso ou circular')
-                res.render('sindico/adm')
-
-                return
-            }       
+            return
         }
 
-        const id = req.params.id
-
-        const reclamacao = await Reclamacao.findOne({ where: { id: id }, raw: true })
-                        
-        res.render('sindico/reclamacao/editar', { reclamacao })
-    }
-
-    static async verificarPost (req, res) {
-
-        const adminId = req.session.adminid
-
-        const admin = await AdminModels.findOne({ where: { id: adminId }, raw: true })
+        const admin = await AdminModels.findOne({ where: { id: adminid }, raw: true })
 
         if (admin.funcao != 'sindico') {
             if (admin.funcao != 'subsindico') {
-                req.flash('mensagem', 'Usuário não possui permissão para criação de aviso ou circular')
-                res.render('sindico/adm')
+                req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
+                res.redirect('/')
 
                 return
-            }       
+            }
+            
+        }
+
+        const id = req.body.id
+
+        const rec = {
+            Verificada: req.body.Verificada === '0' ? false : true,
+            solucao: req.body.solucao
+        }
+
+        try {
+            await Reclamacao.update(rec, { where: { id: id } })
+
+            req.flash('mensagem', 'Reclamação atendida com sucesso!')
+            res.redirect('/adm') 
+
+        } catch (error) {
+            console.log(error)
         }
 
         
     }
 
-    static async remover (req, res) {
+    static async atendidas (req, res) {
+        const adminid = req.session.adminid
 
+        if (!adminid) {
+            res.redirect('/adm')
 
+            return
+        }
+
+        if(adminid == 99999) {
+            req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
+            res.redirect('/')
+
+            return
+        }
+
+        const admin = await AdminModels.findOne({ where: { id: adminid }, raw: true })
+
+        if (admin.funcao != 'sindico') {
+            if (admin.funcao != 'subsindico') {
+                req.flash('mensagem', 'Usuário não possui altorização para acesso a esta função.')
+                res.redirect('/')
+
+                return
+            }
+            
+        }
+
+        const reclamacao = await Reclamacao.findAll({ include: User })
+
+        const reclamacoes = reclamacao.map((result) => result.get({ plain: true }))
+
+        res.render('reclamacao/atendidas', { reclamacoes })
     }
-*/
 }

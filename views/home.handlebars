@@ -15,12 +15,45 @@
         {{/if}}
         <div class="aviso">
             <h2>Espaço da comunidade:</h2>
+            <form action="/" method="get">
+                <input type="text" name="busca" placeholder="O que você procura?">
+                <button type="submit">Buscar</button>
+            </form>
+            <div class="container-order">
+                <span>Ordenar por:</span>
+                <form action="/" method="get">
+                    <input type="hidden" name="busca" value="{{this.busca}}">
+                    <input type="hidden" name="ordenar" value="novo">
+                    <button type="submit"><i class="bi bi-arrow-up"></i></button>
+                </form>
+                <form action="/" method="get">
+                    <input type="hidden" name="busca" value="{{this.busca}}">
+                    <input type="hidden" name="ordenar" value="velho">
+                    <button type="submit"><i class="bi bi-arrow-down"></i></button>
+                </form>                
+            </div>
+            <div class="container-order">
+                <span>Categoria:</span>
+                <form action="/" method="get">
+                    <select name="categoria">
+                        <option value="">todas</option>
+                        <option value="aluguel">Aluguel</option>
+                        <option value="anuncios">Anuncios de eventos</option>
+                        <option value="venda">Apartamentos à venda</option>
+                        <option value="produtos">Produtos à venda</option>
+                        <option value="servicos">Prestação de serviços</option>
+                    </select>
+                    <button type="submit">Buscar</button>
+                </form>
+            </div>
             {{#each divulgacoes}}
                 <h3>{{this.titulo}}</h3>
                 <p>{{this.descricao}}</p>
                 {{#if this.valor}}
                     <p>Valor: R$ {{this.valor}}</p>
-                {{/if}}            
+                {{/if}}
+                <p>Responsável: {{this.User.nome}} apartamento: {{this.User.apartamento}} - {{this.User.bloco}}</p>
+                <hr>    
             {{/each}}    
     </div>
         </div>

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">    
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <title>Condomínio Fácil 1.0</title>
 </head>
 <body>
@@ -69,8 +70,18 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li><a href="/serv/servicos">Serviços</a></li>
-                                <li><a href="/help/sugestoes">Sugestões</a></li>
+                                <li>    
+                                    <div class="dropdown">
+                                    <button href="#" class="dropdown-btn">Serviços</button>
+                                        <div class="dropdown-filho">
+                                            <a href="/serv/solicitar">Solicitar</a>
+                                            <a href="/serv/acompanhar">Serviços em andamento</a>
+                                            <a href="/serv/executados">Serviços Executados</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a href="/sugestao/lista">Sugestões</a></li>
+                                <li><a href="/adm/alterar">Alterar senha</a></li>
                                 <li><a href="/adm/logoutAdmin">Sair</a></li></li>                            
                             {{else}}
                                 {{#if session.userid}}
@@ -92,17 +103,9 @@
                                             <a href="/rec/minhas">Consultar reclamações</a>
                                         </div>
                                     </div>
-                                </li>
-                                <li>
-                                    <div class="dropdown">
-                                    <button href="#" class="dropdown-btn">Serviços</button>
-                                        <div class="dropdown-filho">
-                                            <a href="/serv/solicitar">Solicitar</a>
-                                            <a href="/serv/minhas">Consultar Solicitações</a>
-                                        </div>
-                                    </div>
-                                </li>
+                                </li>                                
                                 <li><a href="/sugestao/sugerir">Sugestões</a></li>
+                                <li><a href="/alterar">Alterar senha</a></li>
                                 <li><a href="/logout">Sair</a></li>
                                 {{else}}
                                     <li><a href="/login">Condômino</a></li>

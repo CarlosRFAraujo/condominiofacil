@@ -2,16 +2,35 @@
     <h1>Tratar reclamações</h1>
     <div class="lista">
         {{#each reclamacoes}}
-            <h2>{{this.tipo}}</h2>
-            <p>{{this.descriacao}}</p>
-            <p>Ass: <span>{{this.apartamento}}</span></p>
-            <div class="div-btn">
-                    <a href="/mural/editaMural/{{this.id}}" class="btn-pensamento">Editar</a>
-                    <form action="/mural/remover" method="post">
+        {{#unless this.Verificada}}
+            <table>
+                <thead>
+                    <th>Tipo de reclação</th>
+                    <th class="maior">Descrição do ocorrido</th>
+                    <th>reclamante:</th>
+                    <th>Apartamento:</th>
+                    <th>Data de reclamação</th>
+                    <th>Atender</th>
+                    <th class="maior">Solução tomada</th>
+                    <th>Executar</th>
+                </thead>
+                <tr>
+                    <td>{{this.tipoReclamacao}}</td>
+                    <td>{{this.descricaoOcorrido}}</td>
+                    <td>{{this.User.nome}}</td>
+                    <td>{{this.User.apartamento}} - {{this.User.bloco}}</td>
+                    <td>{{this.createdAt}}</td>
+                    <form action="/rec/atender" method="post">
                         <input type="hidden" name="id" value="{{this.id}}">
-                        <button type="submit">Excluir</button>
-                    </form>
-                </div>
+                        <td><input type="checkbox" name="Verificada"></td>
+                        <td>
+                            <textarea name="solucao" cols="30" rows="5"></textarea>
+                        </td>
+                        <td><button type="submit">Executar</button></td>
+                    </form>                    
+                </tr>
+            </table>
+        {{/unless}}                 
         {{/each}}
         </div>
     </div>

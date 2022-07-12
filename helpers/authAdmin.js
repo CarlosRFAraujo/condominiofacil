@@ -4,6 +4,8 @@ module.exports.verificaAdmin = function (req, res, next) {
 
     if (!adminid) {
         res.redirect('/adm/loginAdmin')
+
+        return
     }
 
     next()

@@ -4,6 +4,8 @@ module.exports.verificaUser = function (req, res, next) {
 
     if (!userid) {
         res.redirect('/login')
+
+        return
     }
 
     next()

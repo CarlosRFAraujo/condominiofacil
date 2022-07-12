@@ -10,6 +10,13 @@ module.exports = class Admin {
 
     static async home (req, res) {
 
+        const adminid = req.session.adminid
+
+        if(!adminid) {
+            res.render('sindico/login')
+            return
+        }
+
         const mural = await Mural.findAll()
 
         const murals = mural.map((result) => result.get({ plain: true }))

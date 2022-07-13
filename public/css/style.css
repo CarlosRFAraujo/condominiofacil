@@ -141,6 +141,14 @@ header {
 
 }
 
+.vermelho {
+    color: red;
+}
+
+.verde {
+    color: green;
+}
+
 .container-order {
     display: flex;
     text-align: center;

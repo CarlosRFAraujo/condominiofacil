@@ -47,7 +47,6 @@ module.exports = class ReclamacaoController {
         const reclamacao = {
             tipoReclamacao: req.body.tipoReclamacao,
             descricaoOcorrido: req.body.descricaoOcorrido,
-            Verificada: false,
             UserId: userid
         }
 

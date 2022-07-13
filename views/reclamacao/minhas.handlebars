@@ -4,12 +4,13 @@
         {{#each reclamacoes}}
             <h2>{{this.tipoReclamacao}}</h2>
             <p>{{this.descricaoOcorrido}}</p>
-            {{#if this.verifica}}
-                <p>Reclamação verificada</p>
+            {{#if this.Verificada}}
+                <p class="verde">solicitação atendida</p>
+                <p class="verde">Ação tomada: {{this.solucao}}</p>
             {{else}}
-                <p>Aguardando atendimento</p>
+                <p class="vermelho">Aguardando atendimento</p>
+                <p class="vermelho">Ação tomada: {{this.solucao}}</p>
             {{/if}}
-            <p>Ação tomada: {{this.solucao}}</p>
             <div class="div-btn">
                     <form action="/rec/excluir" method="post">
                         <input type="hidden" name="id" value="{{this.id}}">

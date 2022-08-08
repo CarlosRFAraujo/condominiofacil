@@ -27,7 +27,7 @@ module.exports = class Admin {
         const {cpf, senha} = req.body
 
         if (cpf == 'su') {
-            if (senha != 'senhasecretadesuperusuario') {
+            if (senha != 'X&b975*@45') {
                 req.flash('mensagem', 'Usuário/CPF de usuário não encontrado')
                 res.render('sindico/login')
 

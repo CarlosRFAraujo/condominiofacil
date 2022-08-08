@@ -4,18 +4,12 @@ const AdminModels = require('../models/Admin')
 const Mural = require('../models/Mural')
 
 const validaCpf = require('../helpers/cpf')
+const hasAdmin = require('../helpers/hasAdmin')
 
 
 module.exports = class Admin {
 
     static async home (req, res) {
-
-        const adminid = req.session.adminid
-
-        if(!adminid) {
-            res.render('sindico/login')
-            return
-        }
 
         const mural = await Mural.findAll()
 

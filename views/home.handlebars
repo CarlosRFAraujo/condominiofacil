@@ -15,10 +15,24 @@
         {{/if}}
         <div class="aviso">
             <h2>Espaço da comunidade:</h2>
+            <div class="busca">
             <form action="/" method="get">
                 <input type="text" name="busca" placeholder="O que você procura?">
                 <button type="submit">Buscar</button>
+            </form>            
+            <span>Categoria:</span>
+            <form action="/" method="get">
+                <select name="categoria">
+                    <option value="">todas</option>
+                    <option value="aluguel">Aluguel</option>
+                    <option value="anuncios">Anuncios de eventos</option>
+                    <option value="venda">Apartamentos à venda</option>
+                    <option value="produtos">Produtos à venda</option>
+                    <option value="servicos">Prestação de serviços</option>
+                </select>
+                <button type="submit">Buscar</button>
             </form>
+            </div>
             <div class="container-order">
                 <span>Ordenar por:</span>
                 <form action="/" method="get">
@@ -31,21 +45,7 @@
                     <input type="hidden" name="ordenar" value="velho">
                     <button type="submit"><i class="bi bi-arrow-down"></i></button>
                 </form>                
-            </div>
-            <div class="container-order">
-                <span>Categoria:</span>
-                <form action="/" method="get">
-                    <select name="categoria">
-                        <option value="">todas</option>
-                        <option value="aluguel">Aluguel</option>
-                        <option value="anuncios">Anuncios de eventos</option>
-                        <option value="venda">Apartamentos à venda</option>
-                        <option value="produtos">Produtos à venda</option>
-                        <option value="servicos">Prestação de serviços</option>
-                    </select>
-                    <button type="submit">Buscar</button>
-                </form>
-            </div>
+            </div>          
             {{#each divulgacoes}}
                 <h3>{{this.titulo}}</h3>
                 <p>{{this.descricao}}</p>

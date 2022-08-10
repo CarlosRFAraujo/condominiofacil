@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize')
 
-const connect = new Sequelize('condominio_facil', 'dev', 'Vix0428wal', {
-    host: 'dbcondfacil.cxmmg4az2zjb.us-east-1.rds.amazonaws.com',
+const connect = new Sequelize('condominio_facil', 'dev', 'suasenha', {
+    host: 'endereçodeseuserverDataBase',
     dialect: "mysql"
 })
 
